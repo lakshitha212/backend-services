@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+    
+  customer:
+    build:
+      context: ./customer-service
+      dockerfile: ./Dockerfile
+    image: customer:nodejs
+    container_name: customer-service
+    expose:
+      - "3002"
+    ports:
+      - "8082:3002"
+    volumes:
+      - .:/home/node/app
+    networks:
+      - app-network
+    
+  movie:
+    build:
+      context: ./movie-service
+      dockerfile: ./Dockerfile
+    image: movie:nodejs
+    container_name: movie-service
+    expose:
+      - "3003"
+    ports:
+      - "8083:3003"
+    volumes:
+      - .:/home/node/app
+    networks:
+      - app-network
+
+  booking:
+    build:
+      context: ./booking-service
+      dockerfile: ./Dockerfile
+    image: booking:nodejs
+    container_name: booking-service
+    expose:
+      - "3004"
+    ports:
+      - "8084:3004"
+    volumes:
+      - .:/home/node/app
+    networks:
+      - app-network
+
+
+  swagger:
+    build:
+      context: ./swagger-service
+      dockerfile: ./Dockerfile
+    image: codfish/swagger
+    container_name: swagger-service
+    volumes:
+      - .:/home/swagger/app
+    environment:
+      VIRTUAL_HOST: swagger-service.docker
+    expose:
+      - "3009"
+    ports:
+      - "8090:3009"
+
+networks:
+  app-network:
+    driver: bridge
+      
+volumes:
+  dbdata:
+  node_modules:
+    

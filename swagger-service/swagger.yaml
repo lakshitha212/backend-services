@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  description: >-
+    Please note that different services are running on different docker
+    containers. Hence please use the correct port for relevant service. example
+    : user related services are running on 8082
+  version: 1.0.0
+  title: Swagger API Doc
+  contact:
+    email: chameera.lakshitha212@gmail.com
+host: 127.0.0.1:8090
+basePath: /
+tags:
+  - name: Customer Service
+    description: Operations related to customer service
+
+schemes:
+  - http
+
+
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
