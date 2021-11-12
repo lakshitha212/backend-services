@@ -10,7 +10,7 @@ export default function makeCreateCustomer({ backendDb, makeCustomer, setToken }
         isActive: customer.getIsActive(),
         contactNumber: customer.getContactNumber()
       })
-      const accessToken = await setToken(user_response)
+      const accessToken = await setToken(customer_response)
       const updatedUser = await backendDb.update({
         id: customer_response.id,
         accessToken
