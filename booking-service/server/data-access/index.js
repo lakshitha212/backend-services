@@ -11,7 +11,7 @@ const mongoUserName = MONGO_USERNAME || "reservation"
 const mongoPassword = MONGO_PASSWORD || "g33xegQqJcGTdRyu"
 const mongoPort = MONGO_PORT || 27017
 const mongoDb = MONGO_DB || "reservation"
-const mongoHost = MONGO_HOST || "3.141.165.151"
+const mongoHost = MONGO_HOST || "18.218.196.254"
 
 const client = new MongoClient(`mongodb://${mongoUserName}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDb}`, { useUnifiedTopology: true, useNewUrlParser: true })
 

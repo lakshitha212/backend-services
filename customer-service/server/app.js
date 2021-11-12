@@ -22,7 +22,7 @@ const accessLogStream = rfs.createStream("access.log", {
 });
 
 import {
-
+  postCustomer
 } from './controllers'
 import makeCallback from './express-callback'
 dotenv.config()
@@ -35,6 +35,7 @@ app.use(bodyParser.json())
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use('/', indexRouter)
 app.use('/static', express.static('public'))
+app.post('/customer', makeCallback(postCustomer))
 
 
 // catch 404 and forward to error handler
