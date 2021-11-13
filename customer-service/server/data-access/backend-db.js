@@ -45,9 +45,17 @@ export default function makeBackendDB({ makeDb }) {
     return { id, ...insertedInfo }
   }
 
+  async function findAll({ maximumNumberOfResults = Number.MAX_SAFE_INTEGER } = {}) {
+    const db = await makeDb()
+    const cursor = await db.collection(CUSTOMER_COLLECTION).find().limit(maximumNumberOfResults)
+    const result = await cursor.toArray()
+    return result
+  }
+
   return Object.freeze({
     insert,
     update,
-    findByEmail
+    findByEmail,
+    findAll
   })
 }

@@ -8,18 +8,22 @@ import {
 
 import makeCreateCustomer from './create-customer'
 import makeLoginCustomer from './login-cutomer'
+import makeListCustomers from './list-customers'
 
 const createCustomer = makeCreateCustomer({ backendDb, makeCustomer, setToken })
 const loginCustomer = makeLoginCustomer({ backendDb, isValidEmail })
+const listCustomers = makeListCustomers({ backendDb })
 
 const backendService = Object.freeze({
     createCustomer,
-    loginCustomer
+    loginCustomer,
+    listCustomers
 })
 
 export default backendService
 
 export {
     createCustomer,
-    loginCustomer
+    loginCustomer,
+    listCustomers
 }
