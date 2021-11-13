@@ -52,10 +52,16 @@ export default function makeBackendDB({ makeDb }) {
     return result
   }
 
+  async function findById({ id: _id }) {
+    const db = await makeDb()
+    return await db.collection(CUSTOMER_COLLECTION).findOne({ _id })
+  }
+
   return Object.freeze({
     insert,
     update,
     findByEmail,
-    findAll
+    findAll,
+    findById
   })
 }
