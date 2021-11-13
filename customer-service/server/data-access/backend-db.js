@@ -1,4 +1,5 @@
 import Id from '../Id'
+const bcrypt = require('bcryptjs')
 const CUSTOMER_COLLECTION = 'customers'
 export default function makeBackendDB({ makeDb }) {
 
@@ -27,8 +28,26 @@ export default function makeBackendDB({ makeDb }) {
     return result.modifiedCount > 0 ? { id: _id, ...customerInfo } : null
   }
 
+  async function findByEmail(customer) {
+    const db = await makeDb()
+    const result = await db.collection(CUSTOMER_COLLECTION).find({ email: customer.email })
+    const found = await result.toArray()
+    if (found.length === 0) {
+      throw new Error(`No such user ${customer.email} found.`);
+    }
+    const { _id: id, ...insertedInfo } = found[0]
+
+    // password match
+    const valid = await bcrypt.compare(customer.password, insertedInfo.password);
+    if (!valid) {
+      throw new Error('Invalid Password');
+    }
+    return { id, ...insertedInfo }
+  }
+
   return Object.freeze({
     insert,
-    update
+    update,
+    findByEmail
   })
 }

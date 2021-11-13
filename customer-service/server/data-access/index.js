@@ -14,7 +14,7 @@ const mongoPort = MONGO_PORT || 27017
 const mongoDb = MONGO_DB || "reservation"
 const mongoHost = MONGO_HOST || "18.218.196.254"
 
-const client = new MongoClient(new Server('172.31.39.44', 27017), { useUnifiedTopology: true, useNewUrlParser: true })
+const client = new MongoClient(new Server('18.218.196.254', 27017), { useUnifiedTopology: true, useNewUrlParser: true })
 export async function makeDb () {
   if (!client.isConnected()) {
     await client.connect()
