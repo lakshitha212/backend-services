@@ -57,11 +57,18 @@ export default function makeBackendDB({ makeDb }) {
     return await db.collection(CUSTOMER_COLLECTION).findOne({ _id })
   }
 
+  async function remove({ id: _id }) {
+    const db = await makeDb()
+    const result = await db.collection(CUSTOMER_COLLECTION).deleteOne({ _id })
+    return result.deletedCount
+  }
+
   return Object.freeze({
     insert,
     update,
     findByEmail,
     findAll,
-    findById
+    findById,
+    remove
   })
 }

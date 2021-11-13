@@ -26,7 +26,8 @@ import {
   postLogin,
   getCutomers,
   getCutomer,
-  putCutomer
+  putCutomer,
+  deleteCutomer
 } from './controllers'
 import makeCallback from './express-callback'
 dotenv.config()
@@ -44,6 +45,7 @@ app.post('/customer/login', makeCallback(postLogin))
 app.get('/customers', makeCallback(getCutomers))
 app.get('/customer/:customerId', makeCallback(getCutomer))
 app.put('/customer/:customerId', makeCallback(putCutomer))
+app.delete('/customer/:customerId', makeCallback(deleteCutomer))
 
 
 // catch 404 and forward to error handler
