@@ -47,6 +47,20 @@ services:
     networks:
       - app-network
 
+  note:
+    build:
+      context: ./note-service
+      dockerfile: ./Dockerfile
+    image: note:nodejs
+    container_name: note-service
+    expose:
+      - "3005"
+    ports:
+      - "8085:3005"
+    volumes:
+      - .:/home/node/app
+    networks:
+      - app-network
 
   swagger:
     build:
