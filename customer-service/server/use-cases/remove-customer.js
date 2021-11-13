@@ -4,6 +4,11 @@ export default function makeRemoveCustomer({ backendDb }) {
             throw new Error("Customer ID is required!")
         }
 
+        const check = await backendDb.findById({ id: customerId })
+        if (!check) {
+            throw new RangeError('Customer Not Found');
+        }
+
         return await backendDb.remove({
             id: customerId
         })

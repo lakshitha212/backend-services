@@ -3,10 +3,16 @@ export default function makeEditCustomer({ backendDb, makeCustomer }) {
         if (!payload.customerId) {
             throw new Error('Customer Id is required')
         }
+
+        const check = await backendDb.findById({ id: payload.customerId })
+        if (!check) {
+            throw new RangeError('Customer Not Found');
+        }
+
         const customerEntity = await makeCustomer({
             email: 'dummy@email.com',
             password: payload.password ? payload.password : 'dummyPassword',
-            firstName: payload.firstName ? payload.firstName : 'Dummy First'            
+            firstName: payload.firstName ? payload.firstName : 'Dummy First'
         })
 
         const updatedUser = await backendDb.update({
