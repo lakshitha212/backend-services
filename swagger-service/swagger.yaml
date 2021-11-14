@@ -244,6 +244,70 @@ paths:
               properties:
                 error:
                   type: string
+  '/customer/{customerId}':
+      get:
+        security:
+          - Bearer: []
+        tags:
+          - Customer Service
+        summary: Single customer
+        description: Get single customer
+        operationId: singleCustomer
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: customerId
+            description: ID of customer to return
+            required: true
+            type: string
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                customer:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Unique key
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    contactNumber:
+                      type: string
+                    isActive:
+                      type: boolean
+                    password:
+                      type: string
+                    createdAt:
+                      type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
 
 definitions:
   Customer:
