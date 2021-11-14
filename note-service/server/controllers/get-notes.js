@@ -11,8 +11,8 @@ export default function makeGetNotes({ listNotes, getUserId }) {
                 throw new Error('Not Authorized!')
             }
             const token = await httpRequest.headers['Authorization'].replace('Bearer ', '')
-            const loggedInUserId = await getUserId(token)
-            const noteList = await listNotes()
+            const customerId = await getUserId(token)
+            const noteList = await listNotes(customerId)
             return {
                 headers: {
                     'Content-Type': 'application/json',

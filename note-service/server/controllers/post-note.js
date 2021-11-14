@@ -1,4 +1,4 @@
-export default function makePostNote({ createNote }) {
+export default function makePostNote({ createNote, getUserId }) {
     return async function sendResponse(httpRequest) {
         try {
             const { source = {}, ...note } = httpRequest.body
@@ -7,7 +7,12 @@ export default function makePostNote({ createNote }) {
             if (httpRequest.headers['Referer']) {
                 source.referrer = httpRequest.headers['Referer']
             }
-            const response = await createNote({ ...note })
+            if (!httpRequest.headers['Authorization']) {
+                throw new Error('Not Authorized!')
+            }
+            const token = httpRequest.headers['Authorization'].replace('Bearer ', '')
+            const customerId = await getUserId(token)
+            const response = await createNote({ customerId, ...note })
             return {
                 headers: {
                     'Content-Type': 'application/json',

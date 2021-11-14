@@ -15,7 +15,7 @@ import makeGetNote from './get-note'
 import makePutNote from './put-note'
 import makeDeleteNote from './delete-note'
 
-const postNote = makePostNote({ createNote })
+const postNote = makePostNote({ createNote, getUserId })
 const getNotes = makeGetNotes({ listNotes, getUserId })
 const getNote = makeGetNote({ listNote, getUserId })
 const putNote = makePutNote({ editNote, getUserId })

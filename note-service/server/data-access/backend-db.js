@@ -21,9 +21,9 @@ export default function makeBackendDB({ makeDb }) {
     return result.modifiedCount > 0 ? { id: _id, ...noteInfo } : null
   }
 
-  async function findAll({ maximumNumberOfResults = Number.MAX_SAFE_INTEGER } = {}) {
+  async function findAll({ maximumNumberOfResults = Number.MAX_SAFE_INTEGER, customerId } = {}) {
     const db = await makeDb()
-    const cursor = await db.collection(NOTE_COLLECTION).find().limit(maximumNumberOfResults)
+    const cursor = await db.collection(NOTE_COLLECTION).find({customerId}).limit(maximumNumberOfResults)
     const result = await cursor.toArray()
     return result
   }
