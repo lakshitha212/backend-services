@@ -10,7 +10,7 @@ export default function makeEditCustomer({ backendDb, makeCustomer }) {
         }
 
         const customerEntity = await makeCustomer({
-            email: 'dummy@email.com',
+            email: payload.email ? payload.email : 'dummy@email.com',
             password: payload.password ? payload.password : 'dummyPassword',
             firstName: payload.firstName ? payload.firstName : 'Dummy First'
         })

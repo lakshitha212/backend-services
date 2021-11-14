@@ -1,4 +1,4 @@
-import buildMakeNote from './customer';
+import buildMakeNote from './note';
 import { isValidEmail, setPassword } from '../../misc/utilities'
 
 const makeNote = buildMakeNote({ });

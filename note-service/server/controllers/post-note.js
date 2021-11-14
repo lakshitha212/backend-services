@@ -1,25 +1,20 @@
-export default function makeGetCustomers({ listCustomers, getUserId }) {
+export default function makePostNote({ createNote }) {
     return async function sendResponse(httpRequest) {
         try {
-            const { source = {} } = httpRequest.body
+            const { source = {}, ...note } = httpRequest.body
             source.ip = httpRequest.ip
             source.browser = httpRequest.headers['User-Agent']
             if (httpRequest.headers['Referer']) {
                 source.referrer = httpRequest.headers['Referer']
             }
-            if (!httpRequest.headers['Authorization']) {
-                throw new Error('Not Authorized!')
-            }
-            const token = await httpRequest.headers['Authorization'].replace('Bearer ', '')
-            const loggedInUserId = await getUserId(token)
-            const customerList = await listCustomers()
+            const response = await createNote({ ...note })
             return {
                 headers: {
                     'Content-Type': 'application/json',
                     'Last-Modified': new Date().toUTCString() // Use actual modified date of the entity
                 },
                 statusCode: 201,
-                body: { customerList }
+                body: { note: response }
             }
         } catch (e) {
             return {

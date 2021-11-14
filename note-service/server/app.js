@@ -22,12 +22,11 @@ const accessLogStream = rfs.createStream("access.log", {
 });
 
 import {
-  postCustomer,
-  postLogin,
-  getCutomers,
-  getCutomer,
-  putCutomer,
-  deleteCutomer
+  postNote,
+  getNotes,
+  getNote,
+  putNote,
+  deleteNote
 } from './controllers'
 import makeCallback from './express-callback'
 dotenv.config()
@@ -40,12 +39,11 @@ app.use(bodyParser.json())
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use('/', indexRouter)
 app.use('/static', express.static('public'))
-app.post('/customer', makeCallback(postCustomer))
-app.post('/customer/login', makeCallback(postLogin))
-app.get('/customers', makeCallback(getCutomers))
-app.get('/customer/:customerId', makeCallback(getCutomer))
-app.put('/customer/:customerId', makeCallback(putCutomer))
-app.delete('/customer/:customerId', makeCallback(deleteCutomer))
+app.post('/note', makeCallback(postNote))
+app.get('/notes', makeCallback(getNotes))
+app.get('/note/:noteId', makeCallback(getNote))
+app.put('/note/:noteId', makeCallback(putNote))
+app.delete('/note/:noteId', makeCallback(deleteNote))
 
 
 // catch 404 and forward to error handler

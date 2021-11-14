@@ -1,4 +1,4 @@
-export default function makeDeleteCustomer({ removeCustomer, getUserId }) {
+export default function makeGetNotes({ listNotes, getUserId }) {
     return async function sendResponse(httpRequest) {
         try {
             const { source = {} } = httpRequest.body
@@ -7,21 +7,19 @@ export default function makeDeleteCustomer({ removeCustomer, getUserId }) {
             if (httpRequest.headers['Referer']) {
                 source.referrer = httpRequest.headers['Referer']
             }
-
             if (!httpRequest.headers['Authorization']) {
                 throw new Error('Not Authorized!')
             }
             const token = await httpRequest.headers['Authorization'].replace('Bearer ', '')
-            const customerId = httpRequest.params.customerId
-            const userId = await getUserId(token)
-            const response = await removeCustomer({ customerId })
+            const loggedInUserId = await getUserId(token)
+            const noteList = await listNotes()
             return {
                 headers: {
                     'Content-Type': 'application/json',
                     'Last-Modified': new Date().toUTCString() // Use actual modified date of the entity
                 },
                 statusCode: 201,
-                body: { response }
+                body: { noteList }
             }
         } catch (e) {
             return {
