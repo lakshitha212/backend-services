@@ -21,7 +21,7 @@ securityDefinitions:
     in: header
 
 paths:
-  'customer':
+  '/customer':
     post:
       tags:
         - Customer Service
@@ -58,7 +58,7 @@ paths:
               lastName: Dummy
               email: dummy@gmail.com 
               password: dummy
-              contactNumber: 123456789
+              contactNumber: "123456789"
               isActive: true
       responses:
         '201':
