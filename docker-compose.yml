@@ -16,36 +16,6 @@ services:
       - .:/home/node/app
     networks:
       - app-network
-    
-  movie:
-    build:
-      context: ./movie-service
-      dockerfile: ./Dockerfile
-    image: movie:nodejs
-    container_name: movie-service
-    expose:
-      - "3003"
-    ports:
-      - "8083:3003"
-    volumes:
-      - .:/home/node/app
-    networks:
-      - app-network
-
-  booking:
-    build:
-      context: ./booking-service
-      dockerfile: ./Dockerfile
-    image: booking:nodejs
-    container_name: booking-service
-    expose:
-      - "3004"
-    ports:
-      - "8084:3004"
-    volumes:
-      - .:/home/node/app
-    networks:
-      - app-network
 
   note:
     build:
@@ -54,9 +24,9 @@ services:
     image: note:nodejs
     container_name: note-service
     expose:
-      - "3005"
+      - "3003"
     ports:
-      - "8085:3005"
+      - "8083:3003"
     volumes:
       - .:/home/node/app
     networks:

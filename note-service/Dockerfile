@@ -10,7 +10,7 @@ COPY package.json ./
 
 RUN npm install
 
-EXPOSE 3005
+EXPOSE 3003
 
 COPY . ./
 
