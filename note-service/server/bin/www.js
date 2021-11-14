@@ -13,7 +13,7 @@
   * Get port from environment and store in Express.
   */
  
- var port = normalizePort(process.env.NOTE_SERVICE_PORT || '3005');
+ var port = normalizePort(process.env.NOTE_SERVICE_PORT || '3003');
  app.set('port', port);
  
  /**
