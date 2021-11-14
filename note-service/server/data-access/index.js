@@ -6,7 +6,7 @@ import { Server } from 'mongodb'
 dotenv.config()
 const MongoClient = mongodb.MongoClient
 
-const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_PORT, MONGO_DB, MONGO_HOST } = process.env
+const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_PORT, MONGO_DB, MONGO_HOST, PRIVATE_IP } = process.env
 
 const mongoUserName = MONGO_USERNAME || "reservation"
 const mongoPassword = MONGO_PASSWORD || "g33xegQqJcGTdRyu"
