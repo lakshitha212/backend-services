@@ -45,6 +45,7 @@ paths:
               email:
                 type: string
                 required: true
+                description: Unique email
               password:
                 type: string
                 required: true
@@ -65,20 +66,139 @@ paths:
           description: successful operation
           schema:
             type: object
+            properties:
+              customer:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique key
+                  firstName:
+                    type: string
+                  lastName:
+                    type: string
+                  email:
+                    type: string
+                  password:
+                    type: string
+                  contactNumber:
+                    type: string
+                  isActive:
+                    type: boolean
+                  createdAt:
+                    type: number
         '400':
-          description: error message
+          description: bad request
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '404':
+          description: not found
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '500':
+          description: internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  '/customer/login':
+      post:
+        tags:
+          - Customer Service
+        summary: Customer login
+        description: Logs customer into the system
+        operationId: customerLogin
+        produces:
+          - application/json
+        parameters:
+          - in: body
+            name: body
+            schema:
+              type: object
+              properties:
+                loginInfo:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      required: true
+                      description: Unique email
+                    password:
+                      type: string
+                      required: true
+                      description: Password must be longer than 3 characters.
+              example:
+                email: dummy@gmail.com 
+                password: dummy
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                customer:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique key
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    contactNumber:
+                      type: string
+                    isActive:
+                      type: boolean
+                    createdAt:
+                      type: number
+                token:
+                  type: string
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+
 definitions:
   Customer:
     type: object
     properties:
-      _id:
+      id:
         type: string
+        description: Auto generated unique key
       firstName:
         type: string
       lastName:
         type: string
       email:
         type: string
+        description: Unique email
       password:
         type: string
       contactNumber:
@@ -90,8 +210,9 @@ definitions:
   Note:
     type: object
     properties:
-      _id:
+      id:
         type: string
+        description: Auto generated unique key
       title:
         type: string
       description:
