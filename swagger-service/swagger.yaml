@@ -308,6 +308,442 @@ paths:
               properties:
                 error:
                   type: string
+      put:
+        security:
+          - Bearer: []
+        tags:
+          - Customer Service
+        summary: Update customer
+        description: Update single customer
+        operationId: updateSingleCustomer
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: customerId
+            description: ID of customer to update
+            required: true
+            type: string
+          - in: body
+            name: body
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                contactNumber:
+                  type: string                
+                isActive:
+                  type: boolean
+              example:
+                firstName: Dummy
+                lastName: Dummy
+                email: dummy@gmail.com 
+                password: dummy
+                contactNumber: "123456789"
+                isActive: true
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                response:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique key
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    email:
+                      type: string
+                    contactNumber:
+                      type: string
+                    isActive:
+                      type: boolean
+                    password:
+                      type: string
+                    createdAt:
+                      type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+      delete:
+        security:
+          - Bearer: []
+        tags:
+          - Customer Service
+        summary: Delete customer
+        description: Delete single customer
+        operationId: deleteSingleCustomer
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: customerId
+            description: ID of customer to delete
+            required: true
+            type: string          
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                response:
+                  type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+  '/note':
+    post:
+      security:
+          - Bearer: []
+      tags:
+        - Note Service
+      summary: Create a note
+      description: Creating a new note for the customer
+      operationId: createNote
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                required: true
+                description: Title must be longer than 3 characters.
+              description:
+                type: string
+                description: Description must be longer than 2 characters.               
+              isActive:
+                type: boolean
+            example:
+              title: Dummy Title
+              description: Dummy Description
+              isActive: true
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              note:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique key
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  isActive:
+                    type: boolean
+                  createdAt:
+                    type: number
+        '400':
+          description: bad request
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '404':
+          description: not found
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+        '500':
+          description: internal server error
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  '/notes':
+      get:
+        security:
+          - Bearer: []
+        tags:
+          - Note Service
+        summary: Note List
+        description: Get note list for a customer
+        operationId: noteList
+        produces:
+          - application/json
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                noteList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        description: Unique key
+                      title:
+                        type: string
+                      description:
+                        type: string
+                      customerId:
+                        type: string
+                      isActive:
+                        type: boolean
+                      createdAt:
+                        type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+  '/note/{noteId}':
+      get:
+        security:
+          - Bearer: []
+        tags:
+          - Note Service
+        summary: Single note
+        description: Get single note
+        operationId: singleNote
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: noteId
+            description: ID of note to return
+            required: true
+            type: string
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                note:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: Unique key
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    customerId:
+                      type: string
+                    isActive:
+                      type: boolean
+                    createdAt:
+                      type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+      put:
+        security:
+          - Bearer: []
+        tags:
+          - Note Service
+        summary: Update note
+        description: Update single note
+        operationId: updateSingleNote
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: noteId
+            description: ID of note to update
+            required: true
+            type: string
+          - in: body
+            name: body
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string             
+                isActive:
+                  type: boolean
+              example:
+                title: Dummy Title
+                description: Dummy Description
+                isActive: true
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                response:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique key
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    isActive:
+                      type: boolean
+                    createdAt:
+                      type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+      delete:
+        security:
+          - Bearer: []
+        tags:
+          - Note Service
+        summary: Delete note
+        description: Delete single note
+        operationId: deleteSingleNote
+        produces:
+          - application/json
+        parameters:
+          - in: path
+            name: noteId
+            description: ID of note to delete
+            required: true
+            type: string          
+        responses:
+          '201':
+            description: successful operation
+            schema:
+              type: object
+              properties:
+                response:
+                  type: number
+          '400':
+            description: bad request
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '404':
+            description: not found
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+          '500':
+            description: internal server error
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
 
 definitions:
   Customer:
